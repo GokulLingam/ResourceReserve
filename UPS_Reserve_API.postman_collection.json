@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "ups-reserve-api-collection",
+		"name": "UPS Reserve API",
+		"description": "Complete collection for testing UPS Reserve office space booking system API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "ups-reserve-api"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.token) {",
+									"        pm.environment.set('access_token', response.token);",
+									"        pm.environment.set('refresh_token', response.refreshToken);",
+									"        pm.environment.set('user_id', response.user.id);",
+									"        pm.environment.set('user_email', response.user.email);",
+									"        pm.environment.set('user_role', response.user.role);",
+									"        console.log('Login successful. Token saved.');",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@upsreserve.com\",\n  \"password\": \"admin123\",\n  \"rememberMe\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Authenticate user and get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.token) {",
+									"        pm.environment.set('employee_access_token', response.token);",
+									"        pm.environment.set('employee_refresh_token', response.refreshToken);",
+									"        pm.environment.set('employee_user_id', response.user.id);",
+									"        pm.environment.set('employee_user_email', response.user.email);",
+									"        pm.environment.set('employee_user_role', response.user.role);",
+									"        console.log('Employee login successful. Token saved.');",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"employee@upsreserve.com\",\n  \"password\": \"employee123\",\n  \"rememberMe\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Authenticate employee user and get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout user and invalidate tokens"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.token) {",
+									"        pm.environment.set('access_token', response.token);",
+									"        pm.environment.set('refresh_token', response.refreshToken);",
+									"        console.log('Token refreshed successfully.');",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Refresh access token using refresh token"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"verify"
+							]
+						},
+						"description": "Verify if the current access token is valid"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication related endpoints"
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						},
+						"description": "Get current user's profile information"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Smith Updated\",\n  \"department\": \"Engineering\",\n  \"employeeId\": \"EMP002\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						},
+						"description": "Update current user's profile information"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currentPassword\": \"admin123\",\n  \"newPassword\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						},
+						"description": "Change current user's password"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@upsreserve.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						},
+						"description": "Send password reset email"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"reset_token_here\",\n  \"newPassword\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						},
+						"description": "Reset password using reset token"
+					},
+					"response": []
+				}
+			],
+			"description": "User profile and password management endpoints"
+		},
+		{
+			"name": "Admin Operations",
+			"item": [
+				{
+					"name": "Register New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"newuser@upsreserve.com\",\n  \"password\": \"password123\",\n  \"name\": \"Jane Smith\",\n  \"role\": \"EMPLOYEE\",\n  \"department\": \"Marketing\",\n  \"employeeId\": \"EMP003\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new user (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Manager User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"manager@upsreserve.com\",\n  \"password\": \"manager123\",\n  \"name\": \"Manager User\",\n  \"role\": \"MANAGER\",\n  \"department\": \"Sales\",\n  \"employeeId\": \"EMP004\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new manager user (Admin only)"
+					},
+					"response": []
+				}
+			],
+			"description": "Admin-only operations for user management"
+		},
+		{
+			"name": "Error Testing",
+			"item": [
+				{
+					"name": "Login - Invalid Credentials",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"wrong@email.com\",\n  \"password\": \"wrongpassword\",\n  \"rememberMe\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Test login with invalid credentials"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Invalid Email Format",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"invalid-email\",\n  \"password\": \"password123\",\n  \"rememberMe\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Test login with invalid email format"
+					},
+					"response": []
+				},
+				{
+					"name": "Access Protected Endpoint - No Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						},
+						"description": "Test accessing protected endpoint without token"
+					},
+					"response": []
+				},
+				{
+					"name": "Access Protected Endpoint - Invalid Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer invalid_token_here"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						},
+						"description": "Test accessing protected endpoint with invalid token"
+					},
+					"response": []
+				},
+				{
+					"name": "Register User - Employee Access (Should Fail)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{employee_access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@upsreserve.com\",\n  \"password\": \"password123\",\n  \"name\": \"Test User\",\n  \"role\": \"EMPLOYEE\",\n  \"department\": \"Test\",\n  \"employeeId\": \"EMP005\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Test employee trying to register user (should fail - admin only)"
+					},
+					"response": []
+				}
+			],
+			"description": "Test various error scenarios and edge cases"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3001/api",
+			"type": "string"
+		}
+	]
+} 
