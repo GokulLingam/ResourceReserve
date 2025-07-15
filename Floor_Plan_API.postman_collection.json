@@ -1,0 +1,1181 @@
+{
+	"info": {
+		"_postman_id": "floor-plan-api-collection",
+		"name": "Floor Plan API",
+		"description": "Comprehensive API collection for the Floor Plan System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Buildings",
+			"item": [
+				{
+					"name": "Get All Buildings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/buildings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Building by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/buildings/{{building_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings",
+								"{{building_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Building",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Tech Campus Building A\",\n  \"address\": \"123 Innovation Drive\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/buildings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Building",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Building Name\",\n  \"address\": \"123 Innovation Drive\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/buildings/{{building_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings",
+								"{{building_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Building",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/buildings/{{building_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings",
+								"{{building_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Buildings by City",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/buildings/city/San Francisco",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings",
+								"city",
+								"San Francisco"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Buildings by Country",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/buildings/country/USA",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"buildings",
+								"country",
+								"USA"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Floors",
+			"item": [
+				{
+					"name": "Get All Floors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Floors by Building",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/building/{{building_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"building",
+								"{{building_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Floor by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Floor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"buildingId\": \"{{building_id}}\",\n  \"name\": \"First Floor\",\n  \"floorNumber\": 1,\n  \"description\": \"Main workspace floor\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/floors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Floor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"buildingId\": \"{{building_id}}\",\n  \"name\": \"Updated Floor Name\",\n  \"floorNumber\": 1,\n  \"description\": \"Updated description\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Floor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Active Floors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"active"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Floor Layouts",
+			"item": [
+				{
+					"name": "Get Floor Layout",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}/layout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}",
+								"layout"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Floor Layout",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"layoutData\": \"{\\\"floorName\\\":\\\"Updated Layout\\\",\\\"dimensions\\\":{\\\"width\\\":1200,\\\"height\\\":800}}\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}/layout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}",
+								"layout"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Floor Layout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}/layout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}",
+								"layout"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Latest Floor Layout",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/floors/{{floor_id}}/layout/latest",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"floors",
+								"{{floor_id}}",
+								"layout",
+								"latest"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Desks",
+			"item": [
+				{
+					"name": "Get All Desks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Desks by Floor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/floor/{{floor_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"floor",
+								"{{floor_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Desks by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/status/AVAILABLE",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"status",
+								"AVAILABLE"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Desks by Type",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/type/STANDARD",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"type",
+								"STANDARD"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Available Desks by Floor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/floor/{{floor_id}}/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"floor",
+								"{{floor_id}}",
+								"available"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Desk by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/{{desk_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"{{desk_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Desk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"floorId\": \"{{floor_id}}\",\n  \"deskNumber\": \"1-25\",\n  \"xPosition\": 500,\n  \"yPosition\": 300,\n  \"width\": 100,\n  \"height\": 100,\n  \"status\": \"AVAILABLE\",\n  \"deskType\": \"STANDARD\",\n  \"equipment\": \"{\\\"monitor\\\":true,\\\"keyboard\\\":true,\\\"phone\\\":true}\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/desks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Desk",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"floorId\": \"{{floor_id}}\",\n  \"deskNumber\": \"1-25\",\n  \"xPosition\": 500,\n  \"yPosition\": 300,\n  \"width\": 100,\n  \"height\": 100,\n  \"status\": \"AVAILABLE\",\n  \"deskType\": \"STANDARD\",\n  \"equipment\": \"{\\\"monitor\\\":true,\\\"keyboard\\\":true,\\\"phone\\\":true}\",\n  \"isActive\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/desks/{{desk_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"{{desk_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Desk",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/{{desk_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"{{desk_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Desk Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/desks/{{desk_id}}/status?status=MAINTENANCE",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"desks",
+								"{{desk_id}}",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "MAINTENANCE"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Get All Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Current User's Bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"user"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Bookings by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"user",
+								"{{user_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Bookings by Desk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/desk/{{desk_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"desk",
+								"{{desk_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Bookings by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/status/CONFIRMED",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"status",
+								"CONFIRMED"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Bookings by Date Range (User)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/user/{{user_id}}/date-range?startDate=2024-01-15&endDate=2024-01-20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"user",
+								"{{user_id}}",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-15"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Bookings by Date Range (Floor)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/floor/{{floor_id}}/date-range?startDate=2024-01-15&endDate=2024-01-20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"floor",
+								"{{floor_id}}",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-15"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Booking by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/{{booking_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"{{booking_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Booking (Current User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deskId\": \"{{desk_id}}\",\n  \"startTime\": \"2024-01-15T09:00:00\",\n  \"endTime\": \"2024-01-15T17:00:00\",\n  \"notes\": \"Working on project X\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Booking for Specific User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deskId\": \"{{desk_id}}\",\n  \"startTime\": \"2024-01-15T09:00:00\",\n  \"endTime\": \"2024-01-15T17:00:00\",\n  \"notes\": \"Working on project X\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"user",
+								"{{user_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Booking",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deskId\": \"{{desk_id}}\",\n  \"startTime\": \"2024-01-15T09:00:00\",\n  \"endTime\": \"2024-01-15T17:00:00\",\n  \"notes\": \"Updated notes\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/{{booking_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"{{booking_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/{{booking_id}}/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"{{booking_id}}",
+								"cancel"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/{{booking_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"{{booking_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Check Desk Availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/desk/{{desk_id}}/availability?startTime=2024-01-15T09:00:00&endTime=2024-01-15T17:00:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"desk",
+								"{{desk_id}}",
+								"availability"
+							],
+							"query": [
+								{
+									"key": "startTime",
+									"value": "2024-01-15T09:00:00"
+								},
+								{
+									"key": "endTime",
+									"value": "2024-01-15T17:00:00"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3001/api",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your-jwt-token-here",
+			"type": "string"
+		},
+		{
+			"key": "building_id",
+			"value": "building-uuid-here",
+			"type": "string"
+		},
+		{
+			"key": "floor_id",
+			"value": "floor-uuid-here",
+			"type": "string"
+		},
+		{
+			"key": "desk_id",
+			"value": "desk-uuid-here",
+			"type": "string"
+		},
+		{
+			"key": "booking_id",
+			"value": "booking-uuid-here",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "user-uuid-here",
+			"type": "string"
+		}
+	]
+} 

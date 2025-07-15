@@ -424,6 +424,16 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 ## License
 
-This project is licensed under the MIT License. r e a d m e  
- #   R e s o u r c e R e s e r v e  
+This project is licensed under the MIT License. r e a d m e 
  
+ #   R e s o u r c e R e s e r v e 
+ 
+ 
+CREATE TABLE IN10_campus_Floor8_table (
+    id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    building_name NVARCHAR(255) NOT NULL,
+    office_location NVARCHAR(255) NOT NULL,
+    floor_id NVARCHAR(255) NOT NULL,
+    plan_json NVARCHAR(MAX) NOT NULL,
+    updated_at DATETIME DEFAULT GETDATE()
+);

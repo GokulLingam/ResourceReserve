@@ -40,7 +40,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/register", "/auth/forgot-password", "/auth/reset-password").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register", "/auth/forgot-password", "/auth/reset-password")
+                        .permitAll()
+                        .requestMatchers("/floorplan", "/floorplan/**", "/api/floorplan", "/api/floorplan/**", "/api/v1/floor-plans", "/api/v1/dynamic-floor-plans/**")
+                        .permitAll()
+                        .requestMatchers("/bookings/**").permitAll() // Allow booking endpoints for now
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -56,10 +60,10 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         // Allow all origins for development - change this for production
         configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        configuration.setAllowCredentials(false); // Set to false when using "*" for origins
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true); // Allow credentials for development
         configuration.setMaxAge(3600L); // 1 hour
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
