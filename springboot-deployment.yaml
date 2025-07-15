@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-reserve
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resource-reserve
+  template:
+    metadata:
+      labels:
+        app: resource-reserve
+    spec:
+      containers:
+        - name: resource-reserve
+          image: gcr.io/qwiklabs-gcp-02-1c5e6e9afc3d/resource-reserve
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resource-reserve
+spec:
+  type: LoadBalancer
+  selector:
+    app: resource-reserve
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
