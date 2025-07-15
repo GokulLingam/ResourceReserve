@@ -127,6 +127,10 @@ public class BookingService {
         return bookingRepository.findByDateBetweenOrderByDate(startDate, endDate);
     }
     
+    public List<Booking> getBookingsByUserAndDateRange(String userId, LocalDate startDate, LocalDate endDate) {
+        return bookingRepository.findByUserIdAndDateBetweenOrderByDateDesc(userId, startDate, endDate);
+    }
+    
     public List<Booking> getActiveBookingsBySeatAndDate(String seatId, LocalDate date) {
         return bookingRepository.findActiveBookingsBySeatAndDate(seatId, date);
     }
