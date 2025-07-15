@@ -46,6 +46,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/bookings/**").permitAll() // Allow booking endpoints for now
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/admindashboard").permitAll()
+                        .requestMatchers("api/admindashboard").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

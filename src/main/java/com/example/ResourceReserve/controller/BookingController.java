@@ -270,6 +270,85 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/user/{userId}/dashboard")
+    public ResponseEntity<ApiResponse> getUserBookingsForDashboard(
+            @PathVariable String userId,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+        
+        try {
+            // Verify user from token if provided
+            String tokenUserId = null;
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                try {
+                    String token = authHeader.substring(7);
+                    tokenUserId = jwtService.extractUserId(token, jwtService.getJwtSecret());
+                } catch (Exception e) {
+                    log.warn("Failed to extract user from token", e);
+                }
+            }
+            
+            // Use token userId if available, otherwise use path userId
+            String targetUserId = tokenUserId != null ? tokenUserId : userId;
+            
+            LocalDate today = LocalDate.now();
+            LocalDate tomorrow = today.plusDays(1);
+            
+            // Get today's bookings
+            List<Booking> todayBookings = bookingService.getBookingsByDateRange( today, today);
+            System.out.println(today+ "todayBookings "+todayBookings);
+            // Get upcoming bookings (tomorrow onwards)
+            List<Booking> upcomingBookings = bookingService.getBookingsByDateRange( tomorrow, today.plusMonths(1));
+            
+            // Get historical bookings (past bookings)
+            List<Booking> historicalBookings = bookingService.getBookingsByDateRange( today.minusMonths(1), today.minusDays(1));
+            
+            // Convert to responses
+            List<BookingResponse> todayResponses = todayBookings.stream()
+                    .map(BookingResponse::fromEntity)
+                    .toList();
+            
+            List<BookingResponse> upcomingResponses = upcomingBookings.stream()
+                    .map(BookingResponse::fromEntity)
+                    .toList();
+            
+            List<BookingResponse> historicalResponses = historicalBookings.stream()
+                    .map(BookingResponse::fromEntity)
+                    .toList();
+            
+            return ResponseEntity.ok(ApiResponse.builder()
+                    .success(true)
+                    .message("User bookings retrieved successfully")
+                    .data(Map.of(
+                            "today", Map.of(
+                                    "bookings", todayResponses,
+                                    "count", todayBookings.size()
+                            ),
+                            "upcoming", Map.of(
+                                    "bookings", upcomingResponses,
+                                    "count", upcomingBookings.size()
+                            ),
+                            "history", Map.of(
+                                    "bookings", historicalResponses,
+                                    "count", historicalBookings.size()
+                            ),
+                            "summary", Map.of(
+                                    "totalBookings", todayBookings.size() + upcomingBookings.size() + historicalBookings.size(),
+                                    "todayCount", todayBookings.size(),
+                                    "upcomingCount", upcomingBookings.size(),
+                                    "historyCount", historicalBookings.size()
+                            )
+                    ))
+                    .build());
+                    
+        } catch (Exception e) {
+            log.error("Error retrieving user bookings for dashboard", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.builder()
+                    .success(false)
+                    .message("Error retrieving user bookings: " + e.getMessage())
+                    .build());
+        }
+    }
+
     private String extractUserId(String authHeader, BookingRequest request) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             try {
@@ -283,4 +362,6 @@ public class BookingController {
         // Fallback to request userId or generate a default
         return request != null && request.getUserId() != null ? request.getUserId() : "anonymous";
     }
+
+
 } 
