@@ -11,10 +11,13 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
 @Service
 @Slf4j
@@ -128,6 +131,13 @@ public class JwtService {
     
     @SuppressWarnings("unchecked")
     public Set<String> extractPermissions(String token, String secret) {
-        return (Set<String>) extractAllClaims(token, secret).get("permissions");
+        Object permissionsObj = extractAllClaims(token, secret).get("permissions");
+        if (permissionsObj instanceof Set) {
+            return (Set<String>) permissionsObj;
+        } else if (permissionsObj instanceof List) {
+            return new HashSet<>((List<String>) permissionsObj);
+        } else {
+            return Collections.emptySet();
+        }
     }
 } 

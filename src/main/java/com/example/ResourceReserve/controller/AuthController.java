@@ -43,10 +43,11 @@ public class AuthController {
     }
     
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<String>> logout(HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<String>> logout(@RequestBody Map<String, String> body, HttpServletRequest request) {
         try {
+            String refreshToken = body.get("refreshToken");
             String token = extractTokenFromRequest(request);
-            ApiResponse<String> response = authService.logout(token);
+            ApiResponse<String> response = authService.logout(token, refreshToken);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Logout failed: {}", e.getMessage());

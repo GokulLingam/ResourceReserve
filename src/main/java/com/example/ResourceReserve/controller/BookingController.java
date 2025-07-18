@@ -7,6 +7,7 @@ import com.example.ResourceReserve.entity.Booking;
 import com.example.ResourceReserve.entity.Booking.BookType;
 import com.example.ResourceReserve.entity.Booking.RecurrenceType;
 import com.example.ResourceReserve.repository.BookingRepository;
+import com.example.ResourceReserve.repository.UserRepository;
 import com.example.ResourceReserve.service.BookingService;
 import com.example.ResourceReserve.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class BookingController {
     private final BookingRepository bookingRepo;
     private final BookingService bookingService;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
     
     @GetMapping("/health")
     public ResponseEntity<ApiResponse> healthCheck() {
@@ -75,7 +77,12 @@ public class BookingController {
             log.info("Booking created successfully, count: {}", savedBookings.size());
             
             List<BookingResponse> bookingResponses = savedBookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             List<String> bookingDates = savedBookings.stream()
@@ -129,7 +136,12 @@ public class BookingController {
             List<Booking> bookings = bookingService.getBookings(userId, seatId, date, status);
             
             List<BookingResponse> bookingResponses = bookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             return ResponseEntity.ok(ApiResponse.builder()
@@ -157,10 +169,13 @@ public class BookingController {
             
             Booking cancelledBooking = bookingService.cancelBooking(bookingId, userId);
             
+            var userOpt = userRepository.findById(cancelledBooking.getUserId());
+            String userName = userOpt.map(u -> u.getName()).orElse(null);
+            String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
             return ResponseEntity.ok(ApiResponse.builder()
                     .success(true)
                     .message("Booking cancelled successfully")
-                    .data(Map.of("bookingId", bookingId, "booking", BookingResponse.fromEntity(cancelledBooking)))
+                    .data(Map.of("bookingId", bookingId, "booking", BookingResponse.fromEntity(cancelledBooking, userName, userEmail)))
                     .build());
                     
         } catch (IllegalArgumentException e) {
@@ -190,10 +205,13 @@ public class BookingController {
                 return ResponseEntity.notFound().build();
             }
             
+            var userOpt = userRepository.findById(booking.get().getUserId());
+            String userName = userOpt.map(u -> u.getName()).orElse(null);
+            String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
             return ResponseEntity.ok(ApiResponse.builder()
                     .success(true)
                     .message("Booking retrieved successfully")
-                    .data(Map.of("booking", BookingResponse.fromEntity(booking.get())))
+                    .data(Map.of("booking", BookingResponse.fromEntity(booking.get(), userName, userEmail)))
                     .build());
                     
         } catch (Exception e) {
@@ -217,7 +235,12 @@ public class BookingController {
             List<Booking> bookings = bookingService.getBookingsByLocation(officeLocation, building, floor, bookingDate);
             
             List<BookingResponse> bookingResponses = bookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             return ResponseEntity.ok(ApiResponse.builder()
@@ -304,15 +327,30 @@ public class BookingController {
             
             // Convert to responses
             List<BookingResponse> todayResponses = todayBookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             List<BookingResponse> upcomingResponses = upcomingBookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             List<BookingResponse> historicalResponses = historicalBookings.stream()
-                    .map(BookingResponse::fromEntity)
+                    .map(b -> {
+                        var userOpt = userRepository.findById(b.getUserId());
+                        String userName = userOpt.map(u -> u.getName()).orElse(null);
+                        String userEmail = userOpt.map(u -> u.getEmail()).orElse(null);
+                        return BookingResponse.fromEntity(b, userName, userEmail);
+                    })
                     .toList();
             
             return ResponseEntity.ok(ApiResponse.builder()

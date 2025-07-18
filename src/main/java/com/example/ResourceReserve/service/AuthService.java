@@ -69,15 +69,18 @@ public class AuthService {
     }
     
     @Transactional
-    public ApiResponse<String> logout(String token) {
+    public ApiResponse<String> logout(String token, String refreshToken) {
         try {
             String userId = jwtService.extractUserId(token, jwtService.getJwtSecret());
-            User user = userRepository.findById(userId)
+            userRepository.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found"));
-            
-            // Revoke refresh tokens
-            refreshTokenRepository.deleteByUser(user);
-            
+
+            // Only revoke the provided refresh token
+            RefreshToken tokenEntity = refreshTokenRepository.findByTokenAndIsRevokedFalse(refreshToken)
+                    .orElseThrow(() -> new RuntimeException("Refresh token not found or already revoked"));
+            tokenEntity.setIsRevoked(true);
+            refreshTokenRepository.save(tokenEntity);
+
             return ApiResponse.success("Logged out successfully");
         } catch (Exception e) {
             log.error("Logout failed: {}", e.getMessage());

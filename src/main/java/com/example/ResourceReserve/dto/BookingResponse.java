@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+import com.example.ResourceReserve.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -64,6 +66,12 @@ public class BookingResponse {
     @JsonProperty("userId")
     private String userId;
     
+    @JsonProperty("userName")
+    private String userName;
+
+    @JsonProperty("userEmail")
+    private String userEmail;
+    
     @JsonProperty("notes")
     private String notes;
     
@@ -75,9 +83,15 @@ public class BookingResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     
-    public static BookingResponse fromEntity(Booking booking) {
+    // Remove static @Autowired UserRepository
+    // private static UserRepository userRepository;
+    
+    public static BookingResponse fromEntity(Booking booking, String userName, String userEmail) {
         return BookingResponse.builder()
                 .id(booking.getId())
+                .userId(booking.getUserId())
+                .userName(userName)
+                .userEmail(userEmail)
                 .date(booking.getDate())
                 .startTime(booking.getStartTime())
                 .endTime(booking.getEndTime())
@@ -90,7 +104,6 @@ public class BookingResponse {
                 .endDate(booking.getEndDate())
                 .customDates(booking.getCustomDates())
                 .status(booking.getStatus())
-                .userId(booking.getUserId())
                 .notes(booking.getNotes())
                 .createdAt(booking.getCreatedAt())
                 .updatedAt(booking.getUpdatedAt())

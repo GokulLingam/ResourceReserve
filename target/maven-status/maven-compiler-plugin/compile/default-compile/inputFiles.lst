@@ -10,6 +10,7 @@ C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\controller\DynamicFloorPlanController.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\controller\FloorController.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\controller\FloorPlanController.java
+C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\controller\UserManagementController.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\ApiResponse.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\BookingRequest.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\BookingResponse.java
@@ -31,6 +32,8 @@ C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\RefreshTokenResponse.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\ResetPasswordRequest.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\UpdateProfileRequest.java
+C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\UserManagementRequest.java
+C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\UserManagementResponse.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\dto\UserRegistrationRequest.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\entity\Booking.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\entity\Building.java
@@ -62,3 +65,4 @@ C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\service\FloorPlanService.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\service\FloorService.java
 C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\service\JwtService.java
+C:\Users\gokul\OneDrive\Desktop\proj x\ResourceReserve\src\main\java\com\example\ResourceReserve\service\UserService.java
